@@ -132,7 +132,7 @@ def turn (maze_map, maze_width, maze_height, player_location, opponent_location,
     non_explored_directions = []
     for direction in all_direction:
       if direction not in visited_locations:
-        direction.append(non_explored_directions)
+        non_explored_directions.append(direction)
     
     if len(non_explored_directions) == 0 :
       return move_from_locations(player_location, random.choice(all_direction))
