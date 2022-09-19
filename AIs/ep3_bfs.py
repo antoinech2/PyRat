@@ -111,7 +111,7 @@ def traversal(start_vertex, graph, type):
         (cur_vertice, cur_parent) = pop_from_structure(structure_type, structure)
 
         if not cur_vertice in explored_vertices:
-            # We mark the vertie as explored and add it to the rooting structure
+            # We mark the vertice as explored and add it to the rooting structure
             explored_vertices.append(cur_vertice)
             routing_table[cur_vertice] = cur_parent
             # We add every unexplored neighbor to the queue
