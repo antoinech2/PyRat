@@ -67,7 +67,7 @@ def turn (maze_map, maze_width, maze_height, player_location, opponent_location,
 
 ##############################################################
 
-#                OTHER FUNCTIONS
+#                       OTHER FUNCTIONS
 
 ##############################################################
 
@@ -124,25 +124,9 @@ def traversal(start_vertex, graph, type):
 
 def get_direction_from_neighbors_location(source_location, target_location):
     """Get the direction to go from a location to another adjacent location"""
-    # We calculate the difference in x and y between the locations
-    diff_x = target_location[0] - source_location[0]
-    diff_y = target_location[1] - source_location[1]
+    move_list = {(0,-1) : MOVE_DOWN, (-1,0) : MOVE_LEFT, (1,0) : MOVE_RIGHT, (0,1) : MOVE_UP}
+    return move_list[(target_location[0]-source_location[0],target_location[1]-source_location[1])]
 
-    # We check that locations are neighbors
-    assert abs(diff_x <= 1) and abs(diff_y <= 1), "Locations are not neighbors"
-
-    # We return the direction
-    if diff_x == -1 :
-        return MOVE_LEFT
-    elif diff_x == 1 :
-        return MOVE_RIGHT
-    if diff_y == 1 :
-        return MOVE_UP
-    elif diff_y == -1 :
-        return MOVE_DOWN
-    
-    # Error if we haven't find the direction
-    raise Exception(f"Did not find direction between two locations : {source_location} and {target_location}")
 
 def find_route (routing_table, source_location, target_location) :
     """Return list of moves to go from source to target"""
