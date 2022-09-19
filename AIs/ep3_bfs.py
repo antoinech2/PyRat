@@ -57,12 +57,10 @@ def preprocessing (maze_map, maze_width, maze_height, player_location, opponent_
 ##############################################################
 
 def turn (maze_map, maze_width, maze_height, player_location, opponent_location, player_score, opponent_score, pieces_of_cheese, time_allowed) :
-    # While movements queue is not empty
-    while len(moves) > 0:
-        # We pop and execute the move
-        turn = moves.pop(0)
-        print(f"[LOG] Decision : {turn}")
-        return turn
+    # We pop and execute the move
+    turn = moves.pop(0)
+    print(f"[LOG] Decision : {turn}")
+    return turn
 
 
 ##############################################################
