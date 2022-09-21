@@ -11,7 +11,7 @@ MOVE_UP = 'U'
 ##############################################################
 # Please put your code here (imports, variables, functions...)
 ##############################################################
-
+import heapq
 
 ##############################################################
 # The preprocessing function is called at the start of a game
@@ -37,7 +37,7 @@ def preprocessing (maze_map, maze_width, maze_height, player_location, opponent_
     for cheese_position in pieces_of_cheese:
         # We add direction instruction to the queue of movements (FIFO)
         # We calculate path from a piece of cheese to the next one in the list
-        moves += find_route(traversal(start_position, maze_map, "BFS"), start_position, cheese_position)
+        moves += find_route(traversal(start_position, maze_map), start_position, cheese_position)
         start_position = cheese_position
     
 
@@ -86,38 +86,35 @@ def pop_from_structure(type, structure):
     else:
         raise Exception("Unknown structure type")
 
-def traversal(start_vertex, graph, type):
+def traversal(start_vertex, graph):
     """Return routing table from the graph traversal starting from a vertex"""
 
-    # Determine the structure type depending on the traversal type
-    if type.upper() == "BFS":
-        structure_type = "FIFO"
-    elif type.upper() == "DFS":
-        structure_type = "LIFO"
-    else:
-        raise Exception("Unknown traversal type")
-    
-    structure = create_structure()
-
     explored_vertices = []
+    queue = []
     routing_table = {}
+    distances = {}
 
     # We add the initial vertex to the queue
-    push_to_structure(structure, (start_vertex, None))
+    heapq.heappush(queue, (0, start_vertex))
+    distances[start_vertex] = 0
+    routing_table[start_vertex] = None
 
     # While the exploring queue is not empty
-    while len(structure) > 0:
+    while len(queue) > 0:
         # We pop the first element
-        (cur_vertice, cur_parent) = pop_from_structure(structure_type, structure)
+        cur_weight, cur_vertice = heapq.heappop(queue)
+        explored_vertices.append(cur_vertice)
 
-        if not cur_vertice in explored_vertices:
-            # We mark the vertice as explored and add it to the rooting structure
-            explored_vertices.append(cur_vertice)
-            routing_table[cur_vertice] = cur_parent
-            # We add every unexplored neighbor to the queue
-            for neighbor in graph[cur_vertice].keys():
-                if neighbor not in explored_vertices:
-                    push_to_structure(structure, (neighbor,cur_vertice))
+        # We add every unexplored neighbor to the queue
+        #print("nei", list(graph[cur_vertice].items()))
+        for (neighbor, edge_weight) in list(graph[cur_vertice].items()):
+            total_weight = cur_weight + edge_weight
+            if neighbor not in explored_vertices:
+                heapq.heappush(queue, (total_weight, neighbor))
+            if neighbor not in distances or total_weight < distances[neighbor]:
+                routing_table[neighbor] = cur_vertice
+                distances[neighbor] = total_weight
+
     return routing_table
 
 def get_direction_from_neighbors_location(source_location, target_location):

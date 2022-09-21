@@ -3,4 +3,5 @@ __pycache__/
 *.pyc
 .vscode/
 start.sh
+startloc.sh
 log.txt
