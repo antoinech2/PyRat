@@ -8,7 +8,6 @@ MOVE_RIGHT = 'R'
 MOVE_UP = 'U'
 
 Move_list = {(0,-1):MOVE_DOWN,(-1,0):MOVE_LEFT,(1,0):MOVE_RIGHT,(0,1):MOVE_UP}
-visited_locations = []
 moves = []
 def random_move(maze_map,player_location):
     global visited_locations
@@ -19,6 +18,9 @@ def random_move(maze_map,player_location):
         return random.choice([Move_list[(i[0]-player_location[0],i[1]-player_location[1])] for i in Neighbors])
     return random.choice(possible_move)
 def preprocessing (maze_map, maze_width, maze_height, player_location, opponent_location, pieces_of_cheese, time_allowed) :
+    global moves
+    moves = []    
+    visited_locations = []
     print(pieces_of_cheese)
     moves_from_locations([pieces_of_cheese[0]]+find_route(traversal_dj(player_location,maze_map)[1],player_location,pieces_of_cheese[0]))
     # Nothing to do here
@@ -27,7 +29,6 @@ def turn (maze_map, maze_width, maze_height, player_location, opponent_location,
     
     # Returns a random move each turn
     global moves
-    print(len(moves))
     move = moves[0]
     moves = moves[1:]
     return move
@@ -59,7 +60,6 @@ def traversal (start_vertex, graph) :
                     fifo = push_to_structure(fifo,(neighbors,current_vertex))
     return explored_vertices,routing_table
 def find_route(routing_table, source_location,target_location): 
-    print(routing_table)
     route = [routing_table[target_location]]
     while routing_table[route[len(route)-1]] != 0:
         route.append(routing_table[route[-1]])
@@ -69,10 +69,8 @@ def moves_from_locations(locations):
     global moves
     n = len(locations)-1
     for i in range(n):
-        print(i,' ****************')
         moves.append(Move_list[(locations[i][0]-locations[i+1][0],locations[i][1]-locations[i+1][1])])
     moves.reverse()
-    print(moves)
     
 def dijkstras(start_vertex,graph):
     heap = []
@@ -85,18 +83,28 @@ def dijkstras(start_vertex,graph):
             heapq.heappush(heap,(d,i))
     print(heap)
 def traversal_dj (start_vertex, graph) :
+    global moves
+    moves = []   
+    ecart = {}
     heap = []
     heapq.heappush(heap,(0,start_vertex))
     explored_vertices = []
     routing_table = {}
     routing_table[(0,0)]=0
+    ecart[start_vertex] = 0
     while len(heap)>0:
         distance,v = heapq.heappop(heap)
         if v not in explored_vertices:
             explored_vertices.append(v)
             for neighbors in graph[v]:
                 if neighbors not in explored_vertices:
-                    routing_table[neighbors] = v
                     d = distance+graph[v][neighbors]
+                    if neighbors not in ecart:
+                        ecart[neighbors] = d 
+                        routing_table[neighbors] = v
+                    else:
+                        if distance+graph[v][neighbors] < ecart[neighbors]:
+                            routing_table[neighbors] = v
+                        
                     heapq.heappush(heap,(d,neighbors))
     return explored_vertices,routing_table
