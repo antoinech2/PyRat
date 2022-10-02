@@ -13,6 +13,7 @@ MOVE_UP = 'U'
 ##############################################################
 import heapq
 import time
+from unittest.mock import patch
 
 ##############################################################
 # The preprocessing function is called at the start of a game
@@ -32,8 +33,10 @@ def preprocessing (maze_map, maze_width, maze_height, player_location, opponent_
     global moves
     moves = []
 
-    meta_graph, paths = build_meta_graph(maze_map, pieces_of_cheese+[player_location])
-    route = tsp(meta_graph, player_location)
+    #meta_graph, paths = build_meta_graph(maze_map, pieces_of_cheese+[player_location])
+    #route = tsp(meta_graph, player_location)
+
+    route, paths = greedy(maze_map, player_location, pieces_of_cheese+[player_location])
 
     print("route", route)
     #Calculation all paths to get every piece of cheese
@@ -60,9 +63,13 @@ def preprocessing (maze_map, maze_width, maze_height, player_location, opponent_
 
 def turn (maze_map, maze_width, maze_height, player_location, opponent_location, player_score, opponent_score, pieces_of_cheese, time_allowed) :
     # We pop and execute the move
-    turn = moves.pop(0)
-    print(f"[LOG] Decision : {turn}")
-    return turn
+    if len(moves) > 0:
+        turn = moves.pop(0)
+        print(f"[LOG] Decision : {turn}")
+        return turn
+    else:
+        print("[LOG] Pas de mouvement !")
+        return MOVE_DOWN
 
 
 ##############################################################
@@ -70,19 +77,6 @@ def turn (maze_map, maze_width, maze_height, player_location, opponent_location,
 #                       OTHER FUNCTIONS
 
 ##############################################################
-
-def add_or_replace(queue, element):
-    """Add the element to the queue or replace it if the value is lower than the one in the queue"""
-    for cur_elem in queue:
-        # Si on trouve l'élément déjà existant
-        if cur_elem[1] == element[1]:
-            if element[0] < cur_elem[0]:
-                # S'il a une valeur plus faible, alors on le remplace 
-                # On supprime l'ancien élément et on push dans la queue
-                queue.remove(cur_elem)
-                heapq.heappush(queue, element)
-            return #Il ne peut y avoir qu'une seule fois l'élement, on met fin à la boucle
-    heapq.heappush(queue, element) #Si l'élement n'est pas quand la queue, on l'ajoute
 
 def traversal(start_vertex, graph):
     """Return routing table from the graph traversal starting from a vertex using Dijkstra’s algorithm"""
@@ -94,7 +88,7 @@ def traversal(start_vertex, graph):
     # Distance to a vertice not in the dict is infinity
 
     # We add the initial vertex to the queue and set its distance to 0
-    add_or_replace(queue, (0, start_vertex))
+    heapq.heappush(queue, (0, start_vertex))
     distances[start_vertex] = 0
     routing_table[start_vertex] = None # No parent for initial vertice
 
@@ -103,20 +97,20 @@ def traversal(start_vertex, graph):
 
         # We pop the unexplored vertice with lowest distance
         cur_weight, cur_vertice = heapq.heappop(queue)
+        explored_vertices.append(cur_vertice)
 
-        if cur_vertice not in explored_vertices:
-            for neighbor in graph[cur_vertice]:
-                # We calculate the new total weight from initial vertice
-                total_weight = cur_weight + graph[cur_vertice][neighbor]
+        for neighbor in graph[cur_vertice]:
+            # We calculate the new total weight from initial vertice
+            total_weight = cur_weight + graph[cur_vertice][neighbor]
 
-                # We add every unexplored neighbor to the queue if not yet explored
-                add_or_replace(queue, (total_weight, neighbor))
-                
-                # We set the new distance if its lower than the previous one
-                if neighbor not in distances or total_weight < distances[neighbor]:
-                    routing_table[neighbor] = cur_vertice # This is the closest parent for now
-                    distances[neighbor] = total_weight
-            explored_vertices.append(cur_vertice)
+            # We add every unexplored neighbor to the queue if not yet explored
+            if neighbor not in explored_vertices and (total_weight, neighbor) not in queue:
+                heapq.heappush(queue, (total_weight, neighbor))
+            
+            # We set the new distance if its lower than the previous one
+            if neighbor not in distances or total_weight < distances[neighbor]:
+                routing_table[neighbor] = cur_vertice # This is the closest parent for now
+                distances[neighbor] = total_weight
 
     # We return the routing table (representing the shortest path)
     return routing_table, distances
@@ -155,8 +149,9 @@ def build_meta_graph (maze_map, locations) :
         graph[cur_loc] = {}            
         paths_from_loc = {}
         for cur_dest in locations:
-            graph[cur_loc][cur_dest] = distances[cur_dest]
-            paths_from_loc[cur_dest] = find_route(routing_table, cur_loc, cur_dest)
+            if cur_dest != cur_loc:
+                graph[cur_loc][cur_dest] = distances[cur_dest]
+                paths_from_loc[cur_dest] = find_route(routing_table, cur_loc, cur_dest)
         paths[cur_loc] = paths_from_loc
     return graph, paths
 
@@ -199,3 +194,24 @@ def tsp (graph, initial_vertex) :
     # Initial call
     _tsp(initial_vertex, 0, [])
     return best_route
+
+def give_score (graph, current_vertex, neighbors) :
+    # Associate a score (length of path) to each given neighbor
+    scores = {}
+    for loc in neighbors:
+        scores[loc] = graph[current_vertex][loc]
+    return scores
+
+def greedy (graph, initial_vertex, vertices_to_visit) :
+    # Greedy algorithm that goes to the score minimizer until all vertices are visited
+    meta_graph, paths = build_meta_graph(graph, vertices_to_visit)
+    global_path = [initial_vertex]
+    explored_vertices = [initial_vertex]
+    cur_vertex = initial_vertex
+    while not len(explored_vertices) == len(meta_graph):
+        score = give_score(meta_graph, cur_vertex, [x for x in meta_graph[cur_vertex].keys() if x not in explored_vertices])
+        nearest = min(score, key=score.get)
+        explored_vertices.append(nearest)
+        global_path.append(nearest)
+        cur_vertex = nearest
+    return global_path, paths

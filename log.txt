@@ -2,21 +2,9 @@ pygame 2.1.2 (SDL 2.0.18, Python 3.10.6)
 Hello from the pygame community. https://www.pygame.org/contribute.html
 pygame 2.1.2 (SDL 2.0.18, Python 3.10.6)
 Hello from the pygame community. https://www.pygame.org/contribute.html
-route [(0, 0), (6, 0), (10, 16), (17, 8), (16, 6), (15, 5), (15, 14), (13, 20), (14, 22), (15, 23), (20, 12), (24, 28)]
-[LOG] Decision : U
-[LOG] Decision : U
+route [(0, 0), (0, 11), (4, 21), (8, 17), (14, 27), (16, 16), (15, 14), (14, 12), (16, 1), (22, 11), (26, 7), (30, 17)]
 [LOG] Decision : R
 [LOG] Decision : R
-[LOG] Decision : D
-[LOG] Decision : R
-[LOG] Decision : R
-[LOG] Decision : R
-[LOG] Decision : D
-[LOG] Decision : R
-[LOG] Decision : L
-[LOG] Decision : U
-[LOG] Decision : U
-[LOG] Decision : U
 [LOG] Decision : U
 [LOG] Decision : U
 [LOG] Decision : U
@@ -24,148 +12,163 @@ route [(0, 0), (6, 0), (10, 16), (17, 8), (16, 6), (15, 5), (15, 14), (13, 20), 
 [LOG] Decision : U
 [LOG] Decision : L
 [LOG] Decision : U
-[LOG] Decision : R
-[LOG] Decision : R
-[LOG] Decision : R
-[LOG] Decision : U
-[LOG] Decision : U
-[LOG] Decision : U
-[LOG] Decision : R
-[LOG] Decision : U
-[LOG] Decision : R
 [LOG] Decision : U
 [LOG] Decision : R
 [LOG] Decision : U
 [LOG] Decision : U
-[LOG] Decision : D
-[LOG] Decision : D
-[LOG] Decision : L
-[LOG] Decision : D
-[LOG] Decision : L
-[LOG] Decision : D
-[LOG] Decision : D
-[LOG] Decision : D
-[LOG] Decision : R
-[LOG] Decision : R
-[LOG] Decision : D
-[LOG] Decision : D
-[LOG] Decision : R
-[LOG] Decision : D
-[LOG] Decision : D
-[LOG] Decision : R
-[LOG] Decision : R
-[LOG] Decision : R
-[LOG] Decision : R
-[LOG] Decision : R
-[LOG] Decision : R
-[LOG] Decision : R
+[LOG] Decision : U
 [LOG] Decision : U
 [LOG] Decision : L
+[LOG] Decision : L
 [LOG] Decision : U
-[LOG] Decision : D
 [LOG] Decision : R
-[LOG] Decision : D
-[LOG] Decision : L
-[LOG] Decision : L
-[LOG] Decision : L
-[LOG] Decision : D
 [LOG] Decision : U
-[LOG] Decision : L
+[LOG] Decision : U
 [LOG] Decision : L
 [LOG] Decision : U
 [LOG] Decision : U
 [LOG] Decision : U
 [LOG] Decision : U
 [LOG] Decision : R
-[LOG] Decision : U
-[LOG] Decision : U
+[LOG] Decision : R
 [LOG] Decision : R
 [LOG] Decision : U
-[LOG] Decision : U
-[LOG] Decision : U
-[LOG] Decision : U
+[LOG] Decision : R
 [LOG] Decision : R
 [LOG] Decision : U
-[LOG] Decision : U
-[LOG] Decision : R
-[LOG] Decision : U
-[LOG] Decision : U
-[LOG] Decision : L
-[LOG] Decision : L
-[LOG] Decision : L
-[LOG] Decision : U
-[LOG] Decision : U
-[LOG] Decision : L
-[LOG] Decision : L
-[LOG] Decision : D
-[LOG] Decision : R
-[LOG] Decision : D
 [LOG] Decision : U
 [LOG] Decision : L
 [LOG] Decision : U
 [LOG] Decision : R
 [LOG] Decision : R
 [LOG] Decision : R
-[LOG] Decision : U
-[LOG] Decision : D
-[LOG] Decision : R
-[LOG] Decision : R
-[LOG] Decision : R
 [LOG] Decision : R
 [LOG] Decision : D
 [LOG] Decision : D
 [LOG] Decision : R
-[LOG] Decision : D
-[LOG] Decision : D
-[LOG] Decision : R
-[LOG] Decision : R
-[LOG] Decision : D
 [LOG] Decision : D
 [LOG] Decision : D
 [LOG] Decision : L
-[LOG] Decision : L
-[LOG] Decision : D
-[LOG] Decision : D
 [LOG] Decision : D
 [LOG] Decision : U
-[LOG] Decision : U
-[LOG] Decision : U
-[LOG] Decision : R
 [LOG] Decision : R
 [LOG] Decision : U
-[LOG] Decision : U
-[LOG] Decision : U
-[LOG] Decision : R
-[LOG] Decision : U
-[LOG] Decision : R
-[LOG] Decision : R
-[LOG] Decision : R
 [LOG] Decision : U
 [LOG] Decision : L
 [LOG] Decision : U
 [LOG] Decision : U
 [LOG] Decision : U
+[LOG] Decision : R
+[LOG] Decision : R
+[LOG] Decision : R
+[LOG] Decision : U
+[LOG] Decision : R
+[LOG] Decision : U
+[LOG] Decision : U
+[LOG] Decision : R
+[LOG] Decision : R
+[LOG] Decision : U
+[LOG] Decision : D
+[LOG] Decision : L
+[LOG] Decision : L
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : R
+[LOG] Decision : R
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : R
+[LOG] Decision : R
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : L
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : L
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : R
+[LOG] Decision : R
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : R
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : L
+[LOG] Decision : D
+[LOG] Decision : U
+[LOG] Decision : R
+[LOG] Decision : R
 [LOG] Decision : U
 [LOG] Decision : U
 [LOG] Decision : U
+[LOG] Decision : R
+[LOG] Decision : R
+[LOG] Decision : R
+[LOG] Decision : R
 [LOG] Decision : U
 [LOG] Decision : U
 [LOG] Decision : L
+[LOG] Decision : U
+[LOG] Decision : U
+[LOG] Decision : U
+[LOG] Decision : R
+[LOG] Decision : U
+[LOG] Decision : D
+[LOG] Decision : L
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : D
+[LOG] Decision : R
+[LOG] Decision : D
+[LOG] Decision : R
+[LOG] Decision : R
+[LOG] Decision : R
+[LOG] Decision : U
+[LOG] Decision : R
+[LOG] Decision : L
+[LOG] Decision : U
+[LOG] Decision : U
+[LOG] Decision : R
+[LOG] Decision : R
+[LOG] Decision : U
+[LOG] Decision : R
+[LOG] Decision : U
+[LOG] Decision : U
+[LOG] Decision : L
+[LOG] Decision : U
+[LOG] Decision : U
+[LOG] Decision : R
+[LOG] Decision : U
+[LOG] Decision : R
+[LOG] Decision : U
+[LOG] Decision : U
+[LOG] Decision : R
 pygame 2.1.2 (SDL 2.0.18, Python 3.10.6)
 Hello from the pygame community. https://www.pygame.org/contribute.html
 {
-	"miss_python": 276.0
-	"miss_rat": 26.0
+	"miss_python": 163.0
+	"miss_rat": 8.0
 	"moves_python": 0.0
-	"moves_rat": 148.0
+	"moves_rat": 151.0
 	"prep_time_python": 0.0
-	"prep_time_rat": 5.573513507843018
+	"prep_time_rat": 3.7152392864227295
 	"score_python": 0.0
 	"score_rat": 11.0
 	"stucks_python": 0.0
-	"stucks_rat": 102.0
-	"turn_time_python": 0.0
-	"turn_time_rat": 2.792880341813371e-05
+	"stucks_rat": 4.0
+	"turn_time_python": 9.331966470355637e-07
+	"turn_time_rat": 2.8389179153947643e-06
 	"win_python": 0.0
 	"win_rat": 1.0
 }

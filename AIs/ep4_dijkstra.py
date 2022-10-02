@@ -69,6 +69,19 @@ def turn (maze_map, maze_width, maze_height, player_location, opponent_location,
 
 ##############################################################
 
+def add_or_replace(queue, element):
+    """Add the element to the queue or replace it if the value is lower than the one in the queue"""
+    for cur_elem in queue:
+        # Si on trouve l'élément déjà existant
+        if cur_elem[1] == element[1]:
+            if element[0] < cur_elem[0]:
+                # S'il a une valeur plus faible, alors on le remplace 
+                # On supprime l'ancien élément et on push dans la queue
+                queue.remove(cur_elem)
+                heapq.heappush(queue, element)
+            return #Il ne peut y avoir qu'une seule fois l'élement, on met fin à la boucle
+    heapq.heappush(queue, element) #Si l'élement n'est pas quand la queue, on l'ajoute
+
 def traversal(start_vertex, graph):
     """Return routing table from the graph traversal starting from a vertex"""
 
@@ -78,7 +91,7 @@ def traversal(start_vertex, graph):
     distances = {}
 
     # We add the initial vertex to the queue
-    heapq.heappush(queue, (0, start_vertex))
+    add_or_replace(queue, (0, start_vertex))
     distances[start_vertex] = 0
     routing_table[start_vertex] = None
 
@@ -86,18 +99,16 @@ def traversal(start_vertex, graph):
     while len(queue) > 0:
         # We pop the first element
         cur_weight, cur_vertice = heapq.heappop(queue)
-        explored_vertices.append(cur_vertice)
 
+        if cur_vertice not in explored_vertices:
         # We add every unexplored neighbor to the queue
-        #print("nei", list(graph[cur_vertice].items()))
-        start_time = time.time()
-        for neighbor in graph[cur_vertice]:
-            total_weight = cur_weight + graph[cur_vertice][neighbor]
-            if neighbor not in explored_vertices and (total_weight, neighbor) not in queue:
-                heapq.heappush(queue, (total_weight, neighbor))
-            if neighbor not in distances or total_weight < distances[neighbor]:
-                routing_table[neighbor] = cur_vertice
-                distances[neighbor] = total_weight
+            for neighbor in graph[cur_vertice]:
+                total_weight = cur_weight + graph[cur_vertice][neighbor]
+                add_or_replace(queue, (total_weight, neighbor))
+                if neighbor not in distances or total_weight < distances[neighbor]:
+                    routing_table[neighbor] = cur_vertice
+                    distances[neighbor] = total_weight
+            explored_vertices.append(cur_vertice)
 
     return routing_table, distances
 
